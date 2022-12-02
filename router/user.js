@@ -12,6 +12,7 @@ router.post("/login",expressJoi(reg_login_schema),userHandler.login)
 router.post("/role",userHandler.role)
 router.get("/role",userHandler.getRole)
 router.post("/updateRole",userHandler.updateRole)
+router.post("/getRoleByName",userHandler.getRoleByName)
 router.get("/get",(req,res)=>{
     res.send({
         code:200,
