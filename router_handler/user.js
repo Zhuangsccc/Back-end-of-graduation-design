@@ -77,8 +77,8 @@ exports.getRole=(req,res)=>{
     })
 }
 exports.updateRole=(req,res)=>{
-    const sqlStr = 'update user_role set role=? where name=?'
-    db.query(sqlStr,[req.body.role,req.body.name],(err,result)=>{
+    const sqlStr = 'update user_role set role=?,permission=? where name=?'
+    db.query(sqlStr,[req.body.role,req.body.permission,req.body.name],(err,result)=>{
         if(err) res.cc(err)
         if(result.affectedRows!==1) return res.cc("修改失败")
         res.cc("修改成功",200) 
@@ -90,6 +90,7 @@ exports.getRoleByName=(req,res)=>{
         if(err) res.cc(err)
         if(result.length!==1) return res.cc("查询失败")
         result[0].role = result[0].role.split(",")
+        result[0].permission =  result[0].permission.split(",")
         res.send({
             code:200,
             msg:"查询成功",
