@@ -3,6 +3,7 @@ const db = require("../db/index")
 const bcrypt = require("bcryptjs")
 const jwt =require("jsonwebtoken")
 const config = require("../config")
+const { func } = require("joi")
 exports.userInfo=(req,res)=>{
     const userInfo = req.body
     const sqlStr = "select * from vue3_user_info where name=?"
@@ -18,16 +19,29 @@ exports.userInfo=(req,res)=>{
         })
     })
 }
+function setId(routes){
+    routes.forEach(item => {
+        if(item.children){
+            item.children.forEach(prop=>{
+                prop.Ppath = item.path
+                if(prop.children){
+                    setId(item.children)
+                }
+            })
+        }
+    });
+}
 exports.getRoutes= (req,res)=>{
-    const sqlStr = "SELECT `route` FROM `routes`"
+    const sqlStr = "SELECT * FROM `routes`"
     db.query(sqlStr,(err,result)=>{
         if(err) res.cc(err)
         let temp = []
         for(let i = 0;i<result.length;i++){
-            console.log(result[i],i);
             result[i].route = JSON.parse(result[i].route)
+            result[i].route.id = result[i].id
             temp.push(result[i].route)
         }
+        setId(temp)
         res.send({
             code:200,
             msg:"ok",
