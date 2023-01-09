@@ -3,7 +3,6 @@ const db = require("../db/index")
 const bcrypt = require("bcryptjs")
 const jwt =require("jsonwebtoken")
 const config = require("../config")
-const { func } = require("joi")
 exports.userInfo=(req,res)=>{
     const userInfo = req.body
     const sqlStr = "select * from vue3_user_info where name=?"
@@ -31,6 +30,14 @@ function setId(routes){
         }
     });
 }
+function setTitle(routes){
+    routes.forEach(item=>{
+        item.title = item.meta.title
+        if(item.children){
+            setTitle(item.children)
+        }
+    })
+}
 exports.getRoutes= (req,res)=>{
     const sqlStr = "SELECT * FROM `routes`"
     db.query(sqlStr,(err,result)=>{
@@ -42,6 +49,7 @@ exports.getRoutes= (req,res)=>{
             temp.push(result[i].route)
         }
         setId(temp)
+        setTitle(temp)
         res.send({
             code:200,
             msg:"ok",
@@ -91,6 +99,42 @@ exports.deleteStuInfo=(req,res)=>{
         if(err) res.cc(err)
         if(result.affectedRows===1){
             res.cc("删除成功",200)
+        } else {
+            res.cc("删除失败")
+        }
+    })
+}
+exports.addRoutes=(req,res)=>{
+    const {route} = req.body
+    const sqlStr = "INSERT INTO `routes`(`route`) VALUES (?)"
+    db.query(sqlStr,route,(err,result)=>{
+        if(err) res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("添加成功", 200)
+        } else {
+            res.cc("添加失败")
+        }
+    })
+}
+exports.updateRoute=(req,res)=>{
+    const {route,id} = req.body
+    const sqlStr = "UPDATE `routes` SET `route`=? WHERE id=?"
+    db.query(sqlStr,[route,id],(err,result)=>{
+        if(err) res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("添加成功", 200)
+        } else {
+            res.cc("添加失败")
+        }
+    })
+}
+exports.deleteRoute=(req,res)=>{
+    const {id} = req.body
+    const sqlStr = "DELETE FROM `routes` WHERE id=?"
+    db.query(sqlStr,id,(err,result)=>{
+        if(err) res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("删除成功", 200)
         } else {
             res.cc("删除失败")
         }
