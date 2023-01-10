@@ -14,6 +14,7 @@ router.get("/role",userHandler.getRole)
 router.post("/updateRole",userHandler.updateRole)
 router.post("/getRoleByName",userHandler.getRoleByName)
 router.post("/setUser",userHandler.setUser)
+router.get("/getUserList",userHandler.getUserList)
 router.get("/get",(req,res)=>{
     res.send({
         code:200,

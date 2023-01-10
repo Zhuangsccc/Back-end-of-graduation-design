@@ -110,3 +110,18 @@ exports.setUser=(req,res)=>{
         };
     })
 }
+exports.getUserList=(req,res)=>{
+    const sqlStr = "SELECT `name` FROM `vue3_user_info` WHERE 1"
+    db.query(sqlStr,(err,result)=>{
+        if(err) res.cc(err)
+        let temp = []
+        result.forEach((item)=>{
+            temp.push(item.name)
+        })
+        res.send({
+            code:200,
+            msg:"查询成功",
+            data:temp
+        })
+    })
+}
