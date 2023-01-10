@@ -99,9 +99,9 @@ exports.getRoleByName=(req,res)=>{
     })
 }
 exports.setUser=(req,res)=>{
-    const sqlStr = "INSERT INTO `vue3_user_info`(`name`,`roles`) VALUES (?,?)"
-    const {name,roles} = req.body
-    db.query(sqlStr,[name,roles],(err,result)=>{
+    const sqlStr = "INSERT INTO `vue3_user_info`(`name`,`roles`,`time`) VALUES (?,?,?)"
+    const {name,roles,time} = req.body
+    db.query(sqlStr,[name,roles,time],(err,result)=>{
         if (err) return res.cc(err)
         if (result.affectedRows === 1) {
             res.cc("注册成功", 200)
