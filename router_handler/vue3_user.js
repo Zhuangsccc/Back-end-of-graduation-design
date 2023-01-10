@@ -140,3 +140,15 @@ exports.deleteRoute=(req,res)=>{
         }
     })
 }
+exports.setIdRoute=(req,res)=>{
+    const {route,id} = req.body
+    const sqlStr = "INSERT INTO `routes`(`route`, `id`) VALUES (?,?)"
+    db.query(sqlStr,[route,id],(err,result)=>{
+        if(err) res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("添加成功", 200)
+        } else {
+            res.cc("添加失败")
+        }
+    })
+}
