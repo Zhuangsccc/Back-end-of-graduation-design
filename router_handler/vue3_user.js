@@ -153,9 +153,9 @@ exports.setIdRoute=(req,res)=>{
     })
 }
 exports.updateRoles=(req,res)=>{
-    const {roles,name,time} = req.body
-    const sqlStr = "UPDATE `vue3_user_info` SET `roles`=?,`time`=? WHERE name=?"
-    db.query(sqlStr,[roles,time,name],(err,result)=>{
+    const {roles,name} = req.body
+    const sqlStr = "UPDATE `vue3_user_info` SET `roles`=? WHERE name=?"
+    db.query(sqlStr,[roles,name],(err,result)=>{
         if(err) res.cc(err)
         if (result.affectedRows === 1) {
             res.cc("添加成功", 200)
