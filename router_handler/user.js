@@ -127,7 +127,8 @@ exports.getUserList=(req,res)=>{
 }
 ////修改系统用户密码
 exports.updateUserPW=(req,res)=>{
-    const {username,password} = req.body
+    let {username,password} = req.body
+    password = bcrypt.hashSync(password, 10)
     const sqlStr = "UPDATE `user` SET `password`=? WHERE username=?"
     db.query(sqlStr,[password,username],(err,result)=>{
         if (err) return res.cc(err)
