@@ -22,5 +22,7 @@ router.get("/get",(req,res)=>{
         data:{}
     })
 })
+//修改系统用户密码
+router.post("/updateUserPW",userHandler.updateUserPW)
 //暴露路由对象
 module.exports = router

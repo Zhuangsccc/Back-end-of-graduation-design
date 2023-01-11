@@ -125,3 +125,15 @@ exports.getUserList=(req,res)=>{
         })
     })
 }
+////修改系统用户密码
+exports.updateUserPW=(req,res)=>{
+    const {username,password} = req.body
+    const sqlStr = "UPDATE `user` SET `password`=? WHERE username=?"
+    db.query(sqlStr,[password,username],(err,result)=>{
+        if (err) return res.cc(err)
+        if (result.affectedRows === 1) res.send({
+            code: 200,
+            msg: "更新成功"
+        })
+    })
+}
