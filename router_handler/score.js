@@ -23,3 +23,15 @@ exports.getScoreByName=(req,res)=>{
         })
     })
 }
+exports.addNewScore=(req,res)=>{
+    const {name,subject,score,type} = req.body
+    const sqlStr = "INSERT INTO `examinations`( `name`, `subject`, `score`, `type`) VALUES (?,?,?,?)"
+    db.query(sqlStr,[name,subject,score,type],(err,result)=>{
+        if (err) return res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("新增成功", 200)
+        } else {
+            res.cc("新增失败")
+        };
+    })
+}
