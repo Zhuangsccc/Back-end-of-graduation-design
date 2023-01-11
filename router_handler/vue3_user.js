@@ -58,7 +58,7 @@ exports.getRoutes= (req,res)=>{
     })
 }
 exports.getStuInfo=(req,res)=>{
-    const sqlStr = "SELECT * FROM `stu_user` WHERE 1"
+    const sqlStr = "SELECT * FROM `stu_user` WHERE 1 order by major,class asc"
     db.query(sqlStr,(err,result)=>{
         if(err) res.cc(err)
         res.send({
