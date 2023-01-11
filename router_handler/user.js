@@ -138,3 +138,20 @@ exports.updateUserPW=(req,res)=>{
         })
     })
 }
+exports.deleteUser=(req,res)=>{
+    let {username} = req.body
+    const sqlStr = "DELETE FROM `user` WHERE username=?"
+    const sqlStr2 = "DELETE FROM `vue3_user_info` WHERE username=?"
+    db.query(sqlStr,username,(err,result)=>{
+        if(err) res.cc(err)
+        if (result.affectedRows === 1) {
+            db.query(sqlStr2,username,(err,result2)=>{
+                if(err) res.cc(err)
+                if (result2.affectedRows === 1) res.send({
+                    code: 200,
+                    msg: "删除成功"
+                })
+            })
+        }
+    })
+}

@@ -24,5 +24,7 @@ router.get("/get",(req,res)=>{
 })
 //修改系统用户密码
 router.post("/updateUserPW",userHandler.updateUserPW)
+//删除系统用户
+router.delete("/deleteUser",userHandler.deleteUser)
 //暴露路由对象
 module.exports = router
