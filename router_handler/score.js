@@ -35,3 +35,15 @@ exports.addNewScore=(req,res)=>{
         };
     })
 }
+exports.updateScore=(req,res)=>{
+    const {id,name,subject,score,type} = req.body
+    const sqlStr = "UPDATE `examinations` SET `name`=?,`subject`=?,`score`=?,`type`=? WHERE id=?"
+    db.query(sqlStr,[name,subject,score,type,id],(err,result)=>{
+        if (err) return res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("更新成功", 200)
+        } else {
+            res.cc("更新失败")
+        };
+    })
+}
