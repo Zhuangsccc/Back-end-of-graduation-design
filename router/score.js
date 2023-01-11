@@ -5,4 +5,5 @@ router.get("/getScore",score_handler.getScore)
 router.post("/getScoreByName",score_handler.getScoreByName)
 router.post("/addNewScore",score_handler.addNewScore)
 router.post("/updateScore",score_handler.updateScore)
+router.delete("/deleteScore",score_handler.deleteScore)
 module.exports = router

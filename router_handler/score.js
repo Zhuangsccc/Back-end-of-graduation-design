@@ -47,3 +47,15 @@ exports.updateScore=(req,res)=>{
         };
     })
 }
+exports.deleteScore=(req,res)=>{
+    const {id} = req.body
+    const sqlStr = "DELETE FROM `examinations` WHERE id=?"
+    db.query(sqlStr,id,(err,result)=>{
+        if (err) return res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("删除成功", 200)
+        } else {
+            res.cc("删除失败")
+        };
+    })
+}
