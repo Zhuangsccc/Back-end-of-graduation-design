@@ -1,13 +1,25 @@
 const db = require("../db")
 
 exports.getScore=(req,res)=>{
-    const sqlStr = "SELECT `id`, `name`, `subject`, `score`, `type` FROM `examinations` WHERE 1 order by subject,score desc"
-    db.query(sqlStr,(err,result)=>{
+    let {pageIndex,pageSize} = req.query
+    pageIndex = parseInt(pageIndex)
+    pageSize = parseInt(pageSize)
+    let total = 0
+    const getTotal = "select count(id) as tt from examinations"
+    db.query(getTotal,(err,newTotal)=>{
+        if(err) res.cc(err)
+        total = newTotal[0].tt
+    })
+    const sqlStr = "SELECT `id`, `name`, `subject`, `score`, `type` FROM `examinations` WHERE 1 order by subject,score desc limit ?,?"
+    db.query(sqlStr,[pageIndex,pageSize],(err,result)=>{
         if(err) res.cc(err)
         res.send({
             code:200,
             msg:"查询成功",
-            data:result
+            data:{
+                tableData:result,
+                total,
+            }
         })
     })
 }
