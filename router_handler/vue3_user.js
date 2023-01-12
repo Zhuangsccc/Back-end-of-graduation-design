@@ -62,7 +62,7 @@ exports.getStuInfo=(req,res)=>{
     pageIndex = parseInt(pageIndex)
     pageSize = parseInt(pageSize)
     let total = 0
-    const getTotal = "select count(id) as tt from examinations"
+    const getTotal = "select count(id) as tt from stu_user"
     const sqlStr = "SELECT * FROM `stu_user` WHERE 1 order by major,class asc limit ?,?"
     db.query(getTotal,(err,newTotal)=>{
         if(err) res.cc(err)
