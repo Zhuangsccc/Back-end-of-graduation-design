@@ -24,14 +24,25 @@ exports.getScore=(req,res)=>{
     })
 }
 exports.getScoreByName=(req,res)=>{
-    const {name} = req.body
-    const sqlStr = "SELECT `id`, `name`, `subject`, `score`, `type` FROM `examinations` WHERE name=? order by score desc "
-    db.query(sqlStr,name,(err,result)=>{
+    const getTotal = "select count(id) as tt from examinations WHERE name=?"
+    let {name,pageIndex,pageSize} = req.body
+    pageIndex = parseInt(pageIndex)
+    pageSize = parseInt(pageSize)
+    let total = 0
+    db.query(getTotal,name,(err,newTotal)=>{
+        if(err) res.cc(err)
+        total = newTotal[0].tt
+    })
+    const sqlStr = "SELECT `id`, `name`, `subject`, `score`, `type` FROM `examinations` WHERE name=? order by score desc limit ?,? "
+    db.query(sqlStr,[name,pageIndex,pageSize],(err,result)=>{
         if(err) res.cc(err)
         res.send({
             code:200,
             msg:"查询成功",
-            data:result
+            data:{
+                tableData:result,
+                total,
+            }
         })
     })
 }
