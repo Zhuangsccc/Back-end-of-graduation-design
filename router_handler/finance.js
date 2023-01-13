@@ -57,3 +57,15 @@ exports.addFinance=(req,res)=>{
         };
     })
 }
+exports.updateFinance=(req,res)=>{
+    const {state,approver,id} = req.body
+    const sqlStr = "UPDATE `finance` SET `state`=?,`approver`=? WHERE id=?"
+    db.query(sqlStr,[state,approver,id],(err,result)=>{
+        if (err) return res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("修改成功", 200)
+        } else {
+            res.cc("修改失败")
+        };
+    })
+}
