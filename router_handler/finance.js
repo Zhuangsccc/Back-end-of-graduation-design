@@ -1,3 +1,4 @@
+const { request } = require("express")
 const db = require("../db/index")
 exports.getList=(req,res)=>{
     let {pageIndex,pageSize} = req.query
@@ -66,6 +67,18 @@ exports.updateFinance=(req,res)=>{
             res.cc("修改成功", 200)
         } else {
             res.cc("修改失败")
+        };
+    })
+}
+exports.deleteFinance=(req,res)=>{
+    const {id} = req
+    const sqlStr = "DELETE FROM `finance` WHERE id=?"
+    db.query(sqlStr,id,(err,result)=>{
+        if(err) res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("删除成功", 200)
+        } else {
+            res.cc("删除失败")
         };
     })
 }
