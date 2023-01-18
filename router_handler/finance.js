@@ -71,7 +71,7 @@ exports.updateFinance=(req,res)=>{
     })
 }
 exports.deleteFinance=(req,res)=>{
-    const {id} = req
+    const {id} = req.body
     const sqlStr = "DELETE FROM `finance` WHERE id=?"
     db.query(sqlStr,id,(err,result)=>{
         if(err) res.cc(err)
