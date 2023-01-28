@@ -20,7 +20,7 @@ app.use((req,res,next)=>{
     }
     next()
 })
-app.use(jwt({ secret: config.secretKey,algorithms: ["HS256"] }).unless({ path: [/^\/api\//]&&[/^\/stuAdmin\//] }))
+app.use(jwt({ secret: config.secretKey,algorithms: ["HS256"] }).unless({ path: [{url:/^\/api\//},{url:/^\/stuAdmin\//}]}))
 // 导入并注册用户路由模块
 const userRouter = require('./router/user')
 const UserInfoRouter = require("./router/userInfo")
