@@ -5,5 +5,5 @@ const router = express.Router()
 const stuUserHandler= require("../router_handler/stu_admin_user.js")
 
 router.post("/regUser",stuUserHandler.regUser)
-
+router.post("/login",stuUserHandler.login)
 module.exports = router

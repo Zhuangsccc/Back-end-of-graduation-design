@@ -35,7 +35,8 @@ exports.login = (req, res) => {
         res.send({
             code:200,
             msg:"登陆成功",
-            token:tokenStr
+            token:tokenStr,
+            stuName:result[0].stu
         })
     })
 }
