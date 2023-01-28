@@ -40,3 +40,16 @@ exports.login = (req, res) => {
         })
     })
 }
+exports.getStuInfo=(req,res)=>{
+    const {stu} = req.query
+    const sqlStr = "SELECT * FROM `stu_user` WHERE name= ?"
+    db.query(sqlStr,stu,(err,result)=>{
+        if(err) return res.cc(err)
+        if(result.length!==1) return res.cc("用户名错误，请重试")
+        res.send({
+            code:200,
+            msg:"查询成功",
+            data:result[0]
+        })
+    })
+}
