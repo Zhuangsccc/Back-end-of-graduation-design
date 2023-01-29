@@ -53,3 +53,15 @@ exports.getStuInfo=(req,res)=>{
         })
     })
 }
+exports.updatePersonInfo=(req,res)=>{
+    const data = req.body
+    const sqlStr = "UPDATE `stu_user` SET ? WHERE id=?"
+    db.query(sqlStr,[data,data.id],(err,result)=>{
+        if(err) return res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("更新成功", 200)
+        } else {
+            res.cc("更新失败")
+        };
+    })
+}

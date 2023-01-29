@@ -7,4 +7,5 @@ const stuUserHandler= require("../router_handler/stu_admin_user.js")
 router.post("/regUser",stuUserHandler.regUser)
 router.post("/login",stuUserHandler.login)
 router.get("/getStuInfo",stuUserHandler.getStuInfo)
+router.post("/updatePersonInfo",stuUserHandler.updatePersonInfo)
 module.exports = router
