@@ -70,14 +70,16 @@ exports.getStuInfo=(req,res)=>{
     })
     db.query(sqlStr,[pageIndex,pageSize],(err,result)=>{
         if(err) res.cc(err)
-        res.send({
-            code:200,
-            msg:"查询成功",
-            data:{
-                tableData:result,
-                total,
-            }
-        })
+        if(total){
+            res.send({
+                code:200,
+                msg:"查询成功",
+                data:{
+                    tableData:result,
+                    total,
+                }
+            })
+        }
     })
 }
 exports.addStuInfo=(req,res)=>{

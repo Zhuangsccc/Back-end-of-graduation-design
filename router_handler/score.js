@@ -13,14 +13,16 @@ exports.getScore=(req,res)=>{
     const sqlStr = "SELECT `id`, `name`, `subject`, `score`, `type` FROM `examinations` WHERE 1 order by subject,score desc limit ?,?"
     db.query(sqlStr,[pageIndex,pageSize],(err,result)=>{
         if(err) res.cc(err)
-        res.send({
-            code:200,
-            msg:"查询成功",
-            data:{
-                tableData:result,
-                total,
-            }
-        })
+        if(total){
+            res.send({
+                code:200,
+                msg:"查询成功",
+                data:{
+                    tableData:result,
+                    total,
+                }
+            })
+        }
     })
 }
 exports.getScoreByName=(req,res)=>{
@@ -36,14 +38,16 @@ exports.getScoreByName=(req,res)=>{
     const sqlStr = "SELECT `id`, `name`, `subject`, `score`, `type` FROM `examinations` WHERE name=? order by score desc limit ?,? "
     db.query(sqlStr,[name,pageIndex,pageSize],(err,result)=>{
         if(err) res.cc(err)
-        res.send({
-            code:200,
-            msg:"查询成功",
-            data:{
-                tableData:result,
-                total,
-            }
-        })
+        if(total){
+            res.send({
+                code:200,
+                msg:"查询成功",
+                data:{
+                    tableData:result,
+                    total,
+                }
+            })
+        }
     })
 }
 exports.addNewScore=(req,res)=>{
