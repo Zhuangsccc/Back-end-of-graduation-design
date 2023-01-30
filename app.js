@@ -24,8 +24,6 @@ app.use(jwt({ secret: config.secretKey,algorithms: ["HS256"] }).unless({ path: [
 // 导入并注册用户路由模块
 const userRouter = require('./router/user')
 const UserInfoRouter = require("./router/userInfo")
-const artcateRouter = require("./router/artcate")
-const articleRouter = require("./router/article")
 const vue3UserRouter = require("./router/vue3_user")
 const scoreRouter = require("./router/score")
 const financeRoute = require("./router/finance")
@@ -35,8 +33,6 @@ app.use("/stuAdmin",stuAdminUserRouter)
 app.use("/vue3",vue3UserRouter)
 app.use("/score",scoreRouter)
 app.use("/my",UserInfoRouter)
-app.use("/my/article",artcateRouter)
-app.use("/my/article",articleRouter)
 app.use("/finance",financeRoute)
 app.post("/admin/userInfo",(req,res)=>{
     res.send(req.auth)

@@ -178,3 +178,61 @@ exports.updateRoles=(req,res)=>{
         }
     })
 }
+exports.getMessageBoard=(req,res)=>{
+    let {pageIndex,pageSize} = req.body
+    pageIndex = parseInt(pageIndex)
+    pageSize = parseInt(pageSize)
+    let total = 0
+    const getTotal = "select count(id) as tt from message_board where 1"
+    db.query(getTotal,(err,newTotal)=>{
+        if(err) res.cc(err)
+        total = newTotal[0].tt
+    })
+    const sqlStr = "SELECT * FROM message_board WHERE 1 order by release_time desc limit ?,?"
+    db.query(sqlStr,[pageIndex,pageSize],(err,result)=>{
+        if(err) res.cc(err)
+        if(total){
+            res.send({
+                code:200,
+                msg:"查询成功",
+                data:{
+                    tableData:result,
+                    total,
+                }
+            })
+        }else{
+            res.send({
+                code:200,
+                msg:"查询成功",
+                data:{
+                    tableData:[],
+                    total:0
+                }
+            })
+        }
+    })
+}
+exports.deleteMessageBoard=(req,res)=>{
+    const {id} = req.body
+    const sqlStr = "DELETE FROM `message_board` WHERE id=?"
+    db.query(sqlStr,id,(err,result)=>{
+        if(err) res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("删除成功", 200)
+        } else {
+            res.cc("删除失败")
+        }
+    })
+}
+exports.updateMessageBoard=(req,res)=>{
+    const {id,reply_content,reply_time,is_reply} = req.body
+    const sqlStr = "UPDATE `message_board` SET `reply_content`=?,`reply_time`=?,`is_reply`=? WHERE id=?"
+    db.query(sqlStr,[reply_content,reply_time,is_reply,id],(err,result)=>{
+        if(err) res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("回复成功", 200)
+        } else {
+            res.cc("回复失败")
+        }
+    })
+}

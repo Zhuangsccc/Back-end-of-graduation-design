@@ -14,5 +14,8 @@ router.post("/updateStuInfo",userHandler.updateStuInfo)
 router.delete("/deleteStuInfo",userHandler.deleteStuInfo)
 router.post("/setIdRoute",userHandler.setIdRoute)
 router.post("/updateRoles",userHandler.updateRoles)
+router.post("/getMessageBoard",userHandler.getMessageBoard)
+router.delete("/deleteMessageBoard",userHandler.deleteMessageBoard)
+router.post("/updateMessageBoard",userHandler.updateMessageBoard)
 //暴露路由对象
 module.exports = router

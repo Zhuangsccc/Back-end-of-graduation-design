@@ -78,7 +78,7 @@ exports.getMessageBoard=(req,res)=>{
         if(err) res.cc(err)
         total = newTotal[0].tt
     })
-    const sqlStr = "SELECT * FROM message_board WHERE state=1 limit ?,?"
+    const sqlStr = "SELECT * FROM message_board WHERE state=1 order by release_time desc limit ?,?"
     db.query(sqlStr,[pageIndex,pageSize],(err,result)=>{
         if(err) res.cc(err)
         if(total){
