@@ -2,6 +2,7 @@ const db = require("../db")
 const bcrypt = require("bcryptjs")
 const jwt =require("jsonwebtoken")
 const config = require("../config")
+//学生端注册
 exports.regUser=(req,res)=>{
     const userInfo = req.body
     const sqlStr = "select * from stu_admin_user where username=?"
@@ -23,6 +24,7 @@ exports.regUser=(req,res)=>{
         })
     })
 }
+//学生端登录
 exports.login = (req, res) => {
     const userInfo = req.body
     const sqlStr = "select * from stu_admin_user where username=?"
@@ -40,6 +42,7 @@ exports.login = (req, res) => {
         })
     })
 }
+//获取学生信息
 exports.getStuInfo=(req,res)=>{
     const {stu} = req.query
     const sqlStr = "SELECT * FROM `stu_user` WHERE name= ?"
@@ -96,6 +99,18 @@ exports.getMessageBoard=(req,res)=>{
                     total:0
                 }
             })
+        }
+    })
+}
+exports.postMessage=(req,res)=>{
+    let data = req.body
+    const sqlStr = "INSERT INTO `message_board` set ?"
+    db.query(sqlStr,data,(err,result)=>{
+        if(err) res.cc(err)
+        if(result.affectedRows==1){
+            res.cc("发布成功",200)
+        }else{
+            res.cc("发布失败")
         }
     })
 }
