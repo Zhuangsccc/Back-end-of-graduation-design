@@ -8,4 +8,5 @@ router.post("/regUser",stuUserHandler.regUser)
 router.post("/login",stuUserHandler.login)
 router.get("/getStuInfo",stuUserHandler.getStuInfo)
 router.post("/updatePersonInfo",stuUserHandler.updatePersonInfo)
+router.post("/getMessageBoard",stuUserHandler.getMessageBoard)
 module.exports = router

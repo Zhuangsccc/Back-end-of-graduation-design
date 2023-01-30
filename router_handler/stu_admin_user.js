@@ -65,3 +65,37 @@ exports.updatePersonInfo=(req,res)=>{
         };
     })
 }
+exports.getMessageBoard=(req,res)=>{
+    let {pageIndex,pageSize} = req.body
+    pageIndex = parseInt(pageIndex)
+    pageSize = parseInt(pageSize)
+    let total = 0
+    const getTotal = "select count(id) as tt from message_board where state=1"
+    db.query(getTotal,(err,newTotal)=>{
+        if(err) res.cc(err)
+        total = newTotal[0].tt
+    })
+    const sqlStr = "SELECT * FROM message_board WHERE state=1 limit ?,?"
+    db.query(sqlStr,[pageIndex,pageSize],(err,result)=>{
+        if(err) res.cc(err)
+        if(total){
+            res.send({
+                code:200,
+                msg:"查询成功",
+                data:{
+                    tableData:result,
+                    total,
+                }
+            })
+        }else{
+            res.send({
+                code:200,
+                msg:"查询成功",
+                data:{
+                    tableData:[],
+                    total:0
+                }
+            })
+        }
+    })
+}
