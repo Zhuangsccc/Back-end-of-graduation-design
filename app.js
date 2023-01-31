@@ -20,7 +20,7 @@ app.use((req, res, next) => {
     }
     next()
 })
-app.use(jwt({ secret: config.secretKey, algorithms: ["HS256"] }).unless({ path: [{ url: /^\/api\// }, { url: /^\/stuAdmin\// }] }))
+app.use(jwt({ secret: config.secretKey, algorithms: ["HS256"] }).unless({ path: [{ url: /^\/api\// }, { url: /^\/stuAdmin\// },{url: /^\/public\//}] }))
 // 导入并注册用户路由模块
 const userRouter = require('./router/user')
 const UserInfoRouter = require("./router/userInfo")
@@ -34,6 +34,7 @@ app.use("/vue3", vue3UserRouter)
 app.use("/score", scoreRouter)
 app.use("/my", UserInfoRouter)
 app.use("/finance", financeRoute)
+app.use('/public/', express.static('./public/'))
 app.post("/admin/userInfo", (req, res) => {
     res.send(req.auth)
 })

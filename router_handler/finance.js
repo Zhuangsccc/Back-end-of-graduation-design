@@ -127,3 +127,15 @@ exports.getFinancialCharges=(req,res)=>{
         }
     })
 }
+exports.addNewCharges=(req,res)=>{
+    const form = req.body
+    const sqlStr = "INSERT INTO `financial_charges` set ?"
+    db.query(sqlStr,form,(err,result)=>{
+        if (err) return res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("新增成功", 200)
+        } else {
+            res.cc("新增失败")
+        };
+    })
+}

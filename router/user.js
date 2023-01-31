@@ -1,6 +1,7 @@
 const express = require("express")
 //创建路由示例
 const router = express.Router()
+    const userController = require('../controllers/UserController')
 //引入路由处理函数
 const userHandler= require("../router_handler/user.js")
 // 1. 导入验证表单数据的中间件
@@ -22,6 +23,8 @@ router.get("/get",(req,res)=>{
         data:{}
     })
 })
+//上传头像
+router.post('/upload/avatar', userController.upload)
 //修改系统用户密码
 router.post("/updateUserPW",userHandler.updateUserPW)
 //删除系统用户
