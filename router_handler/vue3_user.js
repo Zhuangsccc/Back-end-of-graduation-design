@@ -79,6 +79,15 @@ exports.getStuInfo=(req,res)=>{
                     total,
                 }
             })
+        }else{
+            res.send({
+                code:600,
+                msg:"服务器繁忙,请刷新重试",
+                data:{
+                    tableData:[],
+                    total:0
+                }
+            })
         }
     })
 }
@@ -202,8 +211,8 @@ exports.getMessageBoard=(req,res)=>{
             })
         }else{
             res.send({
-                code:200,
-                msg:"查询成功",
+                code:600,
+                msg:"服务器繁忙,请刷新重试",
                 data:{
                     tableData:[],
                     total:0

@@ -22,6 +22,15 @@ exports.getScore=(req,res)=>{
                     total,
                 }
             })
+        }else{
+            res.send({
+                code:600,
+                msg:"服务器繁忙,请刷新重试",
+                data:{
+                    tableData:[],
+                    total:0
+                }
+            })
         }
     })
 }
@@ -45,6 +54,15 @@ exports.getScoreByName=(req,res)=>{
                 data:{
                     tableData:result,
                     total,
+                }
+            })
+        }else{
+            res.send({
+                code:600,
+                msg:"服务器繁忙,请刷新重试",
+                data:{
+                    tableData:[],
+                    total:0
                 }
             })
         }
