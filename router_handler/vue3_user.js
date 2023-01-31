@@ -82,7 +82,7 @@ exports.getStuInfo=(req,res)=>{
         }else{
             res.send({
                 code:600,
-                msg:"服务器繁忙,请刷新重试",
+                msg:"暂无数据,数据为空或服务器繁忙",
             })
         }
     })
@@ -208,7 +208,7 @@ exports.getMessageBoard=(req,res)=>{
         }else{
             res.send({
                 code:600,
-                msg:"服务器繁忙,请刷新重试",
+                msg:"暂无数据,数据为空或服务器繁忙",
             })
         }
     })
