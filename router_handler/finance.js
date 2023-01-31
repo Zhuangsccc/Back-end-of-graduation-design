@@ -139,3 +139,15 @@ exports.addNewCharges=(req,res)=>{
         };
     })
 }
+exports.deleteCharges=(req,res)=>{
+    const {id} = req.body
+    const sqlStr = "DELETE FROM `financial_charges` WHERE id = ?"
+    db.query(sqlStr,id,(err,result)=>{
+        if(err) res.cc(err)
+        if (result.affectedRows === 1) {
+            res.cc("删除成功", 200)
+        } else {
+            res.cc("删除失败")
+        };
+    })
+}

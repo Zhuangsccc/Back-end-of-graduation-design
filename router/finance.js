@@ -8,4 +8,5 @@ router.post("/updateFinance",finance_handler.updateFinance)
 router.delete("/deleteFinance",finance_handler.deleteFinance)
 router.get("/getFinancialCharges",finance_handler.getFinancialCharges)
 router.post("/addNewCharges",finance_handler.addNewCharges)
+router.delete("/deleteCharges",finance_handler.deleteCharges)
 module.exports = router
