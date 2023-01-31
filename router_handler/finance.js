@@ -104,3 +104,38 @@ exports.deleteFinance=(req,res)=>{
         };
     })
 }
+//获取财务收费
+exports.getFinancialCharges=(req,res)=>{
+    let {pageIndex,pageSize} = req.query
+    pageIndex = parseInt(pageIndex)
+    pageSize = parseInt(pageSize)
+    let total = 0
+    const getTotal = "select count(id) as tt from financial_charges where 1"
+    db.query(getTotal,(err,newTotal)=>{
+        if(err) res.cc(err)
+        total = newTotal[0].tt
+    })
+    const sqlStr = "SELECT * FROM `financial_charges` WHERE 1 order by creation_time desc  limit ?,?"
+    db.query(sqlStr,[pageIndex,pageSize],(err,result)=>{
+        if(err) res.cc(err)
+        if(total){
+            res.send({
+                code:200,
+                msg:"查询成功",
+                data:{
+                    tableData:result,
+                    total,
+                }
+            })
+        }else{
+            res.send({
+                code:600,
+                msg:"服务器繁忙,请刷新重试",
+                data:{
+                    tableData:[],
+                    total:0
+                }
+            })
+        }
+    })
+}

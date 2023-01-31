@@ -6,4 +6,5 @@ router.get("/getApprovalList",finance_handler.getApprovalList)
 router.post("/addFinance",finance_handler.addFinance)
 router.post("/updateFinance",finance_handler.updateFinance)
 router.delete("/deleteFinance",finance_handler.deleteFinance)
+router.get("/getFinancialCharges",finance_handler.getFinancialCharges)
 module.exports = router
